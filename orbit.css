@@ -1,0 +1,68 @@
+/* 定義顏色變數 (可依照您的專案色系自行替換) */
+:root {
+  --yellow: #F5A623;
+  --blue: #4A90E2;
+}
+
+/* --- 1. 容器設定 --- */
+.orbit-container {
+  position: relative;
+  width: 100%;
+  min-height: 700px; /* 確保有足夠空間顯示軌道 */
+  display: grid;
+  place-items: center; /* 讓內部的元素與軌道完美置中 */
+  overflow: hidden; /* 避免軌道超出畫面產生卷軸 */
+}
+
+/* 中心的物件層級設定 */
+.center-content {
+  position: relative;
+  z-index: 10; /* 確保中心內容蓋在軌道上方 */
+}
+
+/* --- 2. 軌道共用設定 --- */
+.orbit { 
+  position: absolute; 
+  border: 1px solid rgba(0, 119, 200, 0.13); 
+  border-radius: 50%; 
+  /* 呼叫名稱為 orbit-spin 的動畫，24秒、勻速、無限循環 */
+  animation: orbit-spin 24s linear infinite; 
+}
+
+/* 生成軌道上的星星 ✦ */
+.orbit::before, 
+.orbit::after { 
+  content: "✦"; 
+  position: absolute; 
+  color: var(--yellow);
+  font-size: 1.2rem; /* 可自行調整星星大小 */
+}
+
+/* --- 3. 第一圈軌道 --- */
+.orbit-one { 
+  width: 520px; 
+  height: 520px; 
+}
+.orbit-one::before { top: 8%; left: 11%; }
+.orbit-one::after { right: 7%; bottom: 15%; color: var(--blue); }
+
+/* --- 4. 第二圈軌道 --- */
+.orbit-two { 
+  width: 650px; 
+  height: 410px; /* 高度較小，呈現橢圓形 */
+  border-style: dashed; /* 虛線軌道 */
+  animation-duration: 34s; /* 速度變慢為 34秒 */
+  animation-direction: reverse; /* 設定反向旋轉 */
+}
+.orbit-two::before { right: 13%; top: 3%; }
+.orbit-two::after { left: 5%; bottom: 8%; }
+
+/* --- 5. 關鍵影格 (驅動旋轉的核心) --- */
+@keyframes orbit-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
